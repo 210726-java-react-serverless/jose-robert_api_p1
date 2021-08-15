@@ -7,8 +7,12 @@ import com.Revature.StudentManagementApp.util.exceptions.DataSourceException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseRepo implements CrudRepo<Courses> {
 
@@ -99,6 +103,27 @@ public class CourseRepo implements CrudRepo<Courses> {
             courseCollection.updateOne(returnDoc, updateDoc);
 
             return true;
+
+        } catch (Exception e) {
+            throw new DataSourceException("An unexpected error occurred", e);
+        }
+    }
+
+    public List<Courses> getCourses() {
+        try {
+            MongoDatabase database = client.getDatabase("p0");
+            MongoCollection<Document> courseCollection = database.getCollection("courses");
+
+            MongoCursor<Document> cursor = courseCollection.find().iterator();
+            ObjectMapper mapper = new ObjectMapper();
+
+            List<Courses> courses = new ArrayList<>();
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                Courses course = mapper.readValue(doc.toJson(), Courses.class);
+            }
+
+            return courses;
 
         } catch (Exception e) {
             throw new DataSourceException("An unexpected error occurred", e);
