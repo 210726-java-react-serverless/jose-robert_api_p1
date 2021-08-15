@@ -41,7 +41,7 @@ public class CourseService {
 
 
     public void deleteCourse(String code){
-        courseRepository.deleteByCourseCode(code);
+        courseRepository.deleteById(code);
     }
 
 

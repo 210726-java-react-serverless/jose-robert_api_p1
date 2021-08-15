@@ -12,12 +12,13 @@ import org.bson.Document;
 
 public class FacultyRepo implements CrudRepo<Faculty> {
 
-
+    @Override
     public Faculty findById(String id) {
         return null;
     }
 
 
+    @Override
     public Faculty save(Faculty user) {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
@@ -67,8 +68,8 @@ public class FacultyRepo implements CrudRepo<Faculty> {
         return false;
     }
 
-
-    public boolean deleteById(int id) {
+    @Override
+    public boolean deleteById(String id) {
         return false;
     }
 

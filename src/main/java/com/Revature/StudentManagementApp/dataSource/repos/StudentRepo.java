@@ -14,11 +14,12 @@ import org.bson.Document;
 
 public class StudentRepo  implements CrudRepo<Student> {
 
+    @Override
     public Student findById(String id) {
         return null;
     }
 
-
+    @Override
     public Student save(Student user) {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
@@ -56,13 +57,15 @@ public class StudentRepo  implements CrudRepo<Student> {
     }
 
 
+    @Override
     public boolean update(Student updatedResource) {
 
         return false;
     }
 
 
-    public boolean deleteById(int id) {
+    @Override
+    public boolean deleteById(String id) {
         return false;
     }
 

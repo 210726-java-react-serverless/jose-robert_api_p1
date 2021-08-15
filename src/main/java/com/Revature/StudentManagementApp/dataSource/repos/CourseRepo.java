@@ -39,7 +39,6 @@ public class CourseRepo implements CrudRepo<Courses> {
     @Override
     public Courses save(Courses course) {
         try {
-            // TODO switch variables to environment variables
             MongoDatabase database = client.getDatabase("p0");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
@@ -59,19 +58,50 @@ public class CourseRepo implements CrudRepo<Courses> {
 
     @Override
     public boolean update(Courses course) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        try {
+            MongoDatabase database = client.getDatabase("p0");
+            MongoCollection<Document> courseCollection = database.getCollection("courses");
+
+            Document queryDoc = new Document("courseId", id);
+            Document removeDoc = courseCollection.find(queryDoc).first();
+
+            if (removeDoc == null) {
+                return false;
+            }
+
+            courseCollection.deleteOne(removeDoc);
+            return true;
+
+        } catch (Exception e) {
+            throw new DataSourceException("An unexpected error occurred", e);
+        }
+    }
+
+    public boolean updateCourse(Courses course, String field, String newData) {
         try {
             MongoDatabase database = client.getDatabase("p0");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             Document queryDoc = new Document("course_code", course.getCourse_code());
+            Document returnDoc = courseCollection.find(queryDoc).first();
 
-            // TODO the rest of this logic
+            if (returnDoc == null) {
+                return false;
+            }
+
+            Document newDoc = new Document(field, newData);
+            Document updateDoc = new Document("$set", newDoc);
+            courseCollection.updateOne(returnDoc, updateDoc);
+
+            return true;
+
+        } catch (Exception e) {
+            throw new DataSourceException("An unexpected error occurred", e);
         }
-        return false;
-    }
-
-    @Override
-    public boolean deleteById(int id) {
-        return false;
     }
 }
