@@ -1,7 +1,8 @@
 package com.Revature.StudentManagementApp.web.servlets;
 
+import com.Revature.StudentManagementApp.dataSource.documents.Faculty;
 import com.Revature.StudentManagementApp.dataSource.documents.Student;
-import com.Revature.StudentManagementApp.services.StudentService;
+import com.Revature.StudentManagementApp.services.FacultyService;
 import com.Revature.StudentManagementApp.util.exceptions.InvalidRequestException;
 import com.Revature.StudentManagementApp.web.dtos.ErrorResponse;
 import com.Revature.StudentManagementApp.web.dtos.Principal;
@@ -15,20 +16,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class UserServlet extends HttpServlet {
+public class FacultySevlet extends HttpServlet {
 
-    private final StudentService studentService;
+    private final FacultyService facultyService;
     private final ObjectMapper mapper;
 
-    public UserServlet(StudentService studentService, ObjectMapper mapper) {
-        this.studentService = studentService;
+
+    public FacultySevlet(FacultyService facultyService, ObjectMapper mapper) {
+        this.facultyService = facultyService;
         this.mapper = mapper;
     }
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/users works!</h1>");
+        resp.getWriter().write("<h1>/Faculty Servlet is working works!</h1>");
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,8 +40,8 @@ public class UserServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         try {
-            Student newStudent = mapper.readValue(req.getInputStream(), Student.class);
-            Principal principal = new Principal(studentService.register(newStudent));
+            Faculty newFaculty = mapper.readValue(req.getInputStream(), Faculty.class);
+            Principal principal = new Principal(facultyService.register(newFaculty));
             String payload = mapper.writeValueAsString(principal);
             respWriter.write(payload);
             resp.setStatus(201); // 201 - Created
@@ -52,4 +55,5 @@ public class UserServlet extends HttpServlet {
             resp.setStatus(500);
         }
     }
+
 }
