@@ -3,7 +3,7 @@ package com.Revature.StudentManagementApp.web.util;
 import com.Revature.StudentManagementApp.dataSource.repos.StudentRepo;
 import com.Revature.StudentManagementApp.services.StudentService;
 import com.Revature.StudentManagementApp.util.MongoConnection;
-import com.Revature.servlets.TestServlet;
+import com.Revature.StudentManagementApp.web.servlets.TestServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 
