@@ -38,8 +38,8 @@ public class MongoConnection {
             String ipAddress = appProperties.getProperty("ipAddress");
             int port = Integer.parseInt(appProperties.getProperty("port"));
             String dbName = appProperties.getProperty("dbName");
-            String username = appProperties.getProperty("username");
-            char[] password = appProperties.getProperty("password").toCharArray();
+            String username = appProperties.getProperty("dbUsername");
+            char[] password = appProperties.getProperty("dbPassword").toCharArray();
 
             List<ServerAddress> hosts = Collections.singletonList(new ServerAddress(ipAddress, port));
             MongoCredential credentials = MongoCredential.createScramSha1Credential(username, dbName, password);
