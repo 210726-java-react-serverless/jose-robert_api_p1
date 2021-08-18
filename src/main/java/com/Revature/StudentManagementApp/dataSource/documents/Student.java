@@ -1,25 +1,22 @@
 package com.Revature.StudentManagementApp.dataSource.documents;
 
-public class Student {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Student {
 
     private String student_Id;
     private String Major;
     private SchoolUser user;
 
-
-
-    public Student(){};
-
-
+    public Student() {
+        super();
+    }
 
     public Student(String major, String fn, String ln, String dob, String phone, String username, String password, String email, Address address) {
         this.Major = major;
         this.user = new SchoolUser(fn, ln, dob, phone, username, password, email, address);
     }
-
-
-
 
     public String toFile() {
 
@@ -32,7 +29,6 @@ public class Student {
 
         return builder.toString();
     }
-
 
     @Override
     public String toString() {

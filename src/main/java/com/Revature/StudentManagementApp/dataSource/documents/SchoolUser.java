@@ -1,8 +1,12 @@
 package com.Revature.StudentManagementApp.dataSource.documents;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SchoolUser {
+
     private String first_name;
     private String last_name;
     private String DOB;
@@ -11,6 +15,21 @@ public class SchoolUser {
     private String password;
     private String email;
     private Address address;
+
+    public SchoolUser() {
+        super();
+    }
+
+    public SchoolUser(String first_name, String last_name, String DOB, String phone_num, String user_name, String password, String email, Address address) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.DOB = DOB;
+        this.phone_num = phone_num;
+        this.user_name = user_name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+    }
 
     public String getFirst_name() {
         return first_name;
@@ -75,24 +94,6 @@ public class SchoolUser {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-    public SchoolUser(){};
-
-    public SchoolUser(String first_name, String last_name, String DOB, String phone_num, String user_name, String password, String email, Address address) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.DOB = DOB;
-        this.phone_num = phone_num;
-        this.user_name = user_name;
-        this.password = password;
-        this.email = email;
-        this.address = address;
-    }
-
-
-
-
-
 
     @Override
     public String toString() {
