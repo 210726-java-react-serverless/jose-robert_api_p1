@@ -3,7 +3,7 @@ package com.Revature.StudentManagementApp.web.util;
 import com.Revature.StudentManagementApp.dataSource.repos.StudentRepo;
 import com.Revature.StudentManagementApp.services.StudentService;
 import com.Revature.StudentManagementApp.util.MongoConnection;
-import com.Revature.StudentManagementApp.web.servlets.TestServlet;
+import com.Revature.StudentManagementApp.web.servlets.HealthCheckServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 
@@ -21,10 +21,10 @@ public class ContextLoaderListener implements ServletContextListener {
         StudentRepo studentRepo = new StudentRepo();
         StudentService studentService = new StudentService(studentRepo);
 
-        TestServlet testServlet = new TestServlet();
+        HealthCheckServlet healthCheckServlet = new HealthCheckServlet();
 
         ServletContext context = sce.getServletContext();
-        context.addServlet("TestServlet", testServlet).addMapping("/test");
+        context.addServlet("HealthCheckServlet", healthCheckServlet).addMapping("/test");
     }
 
     @Override
