@@ -26,7 +26,7 @@ public class StudentRepo  implements CrudRepo<Student> {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCollection = p0.getCollection("students");
 
         Document newUserDoc;
@@ -85,7 +85,7 @@ public class StudentRepo  implements CrudRepo<Student> {
     public Student findUserByCredentials(String username, String password)  {
         try {
             MongoClient mongoClient = MongoConnection.getInstance().getConnection();
-            MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+            MongoDatabase p0 = mongoClient.getDatabase("project");
             MongoCollection<Document> usersCollection = p0.getCollection( "students");
 
             Document queryDoc = new Document("user.user_name", username)
