@@ -1,5 +1,6 @@
 package com.Revature.StudentManagementApp.web.util;
 
+import com.Revature.StudentManagementApp.web.servlets.AuthServlet;
 import com.Revature.StudentManagementApp.dataSource.repos.CourseRepo;
 import com.Revature.StudentManagementApp.dataSource.repos.FacultyRepo;
 import com.Revature.StudentManagementApp.dataSource.repos.RegistrationRepo;
@@ -48,16 +49,20 @@ public class ContextLoaderListener implements ServletContextListener {
 
 
 
+        FacultyRepo facultyRepo = new FacultyRepo();
+        FacultyService facultyService = new FacultyService(facultyRepo);
+
         HealthCheckServlet healthCheckServlet = new HealthCheckServlet();
+        StudentServlet studentServlet = new StudentServlet(studentService, mapper);
+        FacultyServlet facultyServlet = new FacultyServlet(facultyService, mapper);
+        AuthServlet authServlet = new AuthServlet(studentService, mapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("HealthCheckServlet", healthCheckServlet).addMapping("/test");
+        context.addServlet("AuthServlet", authServlet).addMapping("/auth");
         context.addServlet("Studentservlet", studentServlet).addMapping("/students");
         context.addServlet("Facultyservlet", facultyServlet).addMapping("/faculty");
         context.addServlet("Courseservlet", courseServlet).addMapping("/course");
-
-
-
     }
 
     @Override

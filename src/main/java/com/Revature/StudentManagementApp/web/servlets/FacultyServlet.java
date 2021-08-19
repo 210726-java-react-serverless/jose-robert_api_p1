@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FacultySevlet extends HttpServlet {
+public class FacultyServlet extends HttpServlet {
 
     private final FacultyService facultyService;
     private final ObjectMapper mapper;
 
 
-    public FacultySevlet(FacultyService facultyService, ObjectMapper mapper) {
+    public FacultyServlet(FacultyService facultyService, ObjectMapper mapper) {
         this.facultyService = facultyService;
         this.mapper = mapper;
     }
