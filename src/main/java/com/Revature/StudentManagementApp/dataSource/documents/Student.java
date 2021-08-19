@@ -18,6 +18,11 @@ public class Student {
         this.user = new SchoolUser(fn, ln, dob, phone, username, password, email, address);
     }
 
+    public Student(String major, String fn, String ln, String dob, String phone, String username, String password, String email) {
+        this.Major = major;
+        this.user = new SchoolUser(fn, ln, dob, phone, username, password, email);
+    }
+
     public String toFile() {
 
         StringBuilder builder = new StringBuilder();
