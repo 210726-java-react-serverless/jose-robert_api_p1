@@ -29,25 +29,36 @@ public class StudentRepo  implements CrudRepo<Student> {
         MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
         MongoCollection<Document> usersCollection = p0.getCollection("students");
 
-        Document addressDoc = new Document("number", user.getUser().getAddress().getNumber())
-                .append("street", user.getUser().getAddress().getStreet())
-                .append("city", user.getUser().getAddress().getCity())
-                .append("state", user.getUser().getAddress().getState())
-                .append("country", user.getUser().getAddress().getCountry())
-                .append("zip_code", user.getUser().getAddress().getZip_code());
+        Document newUserDoc;
+        if (user.getUser().getAddress() == null) {
+            newUserDoc = new Document("first_name", user.getUser().getFirst_name())
+                    .append("last_name", user.getUser().getLast_name())
+                    .append("DOB", user.getUser().getDOB())
+                    .append("phone_num", user.getUser().getPhone_num())
+                    .append("user_name", user.getUser().getUser_name())
+                    .append("password", user.getUser().getPassword())
+                    .append("email", user.getUser().getEmail());
 
-        Document newUserDoc = new Document("first_name", user.getUser().getFirst_name())
-                .append("last_name", user.getUser().getLast_name())
-                .append("DOB", user.getUser().getDOB())
-                .append("phone_num", user.getUser().getPhone_num())
-                .append("user_name", user.getUser().getUser_name())
-                .append("password", user.getUser().getPassword())
-                .append("email", user.getUser().getEmail())
-                .append("address", addressDoc);
+        } else {
+            Document addressDoc = new Document("number", user.getUser().getAddress().getNumber())
+                    .append("street", user.getUser().getAddress().getStreet())
+                    .append("city", user.getUser().getAddress().getCity())
+                    .append("state", user.getUser().getAddress().getState())
+                    .append("country", user.getUser().getAddress().getCountry())
+                    .append("zip_code", user.getUser().getAddress().getZip_code());
+
+            newUserDoc = new Document("first_name", user.getUser().getFirst_name())
+                    .append("last_name", user.getUser().getLast_name())
+                    .append("DOB", user.getUser().getDOB())
+                    .append("phone_num", user.getUser().getPhone_num())
+                    .append("user_name", user.getUser().getUser_name())
+                    .append("password", user.getUser().getPassword())
+                    .append("email", user.getUser().getEmail())
+                    .append("address", addressDoc);
+        }
 
         Document StuDoc = new Document("major", user.getMajor())
                 .append( "user", newUserDoc);
-        ;
 
         usersCollection.insertOne(StuDoc);
 
