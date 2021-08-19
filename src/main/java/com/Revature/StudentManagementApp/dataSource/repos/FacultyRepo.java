@@ -23,7 +23,7 @@ public class FacultyRepo implements CrudRepo<Faculty> {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCollection = p0.getCollection("facultyy");
 
         Document addressdoc = new Document("number", user.getUser().getAddress().getNumber())
@@ -78,7 +78,7 @@ public class FacultyRepo implements CrudRepo<Faculty> {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         Faculty faculty = null;
         MongoCollection<Document> usersCollection = p0.getCollection( "facultyy");
         Document queryDoc = new Document("user.user_name", username).append("user.password", password);
