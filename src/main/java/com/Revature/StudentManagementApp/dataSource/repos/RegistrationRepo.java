@@ -22,7 +22,7 @@ public class RegistrationRepo {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> courseCollection = p0.getCollection("courses");
         MongoCursor<Document> c = courseCollection.find().iterator();
         ObjectMapper mapper = new ObjectMapper();
@@ -52,7 +52,7 @@ public class RegistrationRepo {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCollection = p0.getCollection("registeredTo");
 
         Document classDoc = new Document("course_code", c.getCourse_code())
@@ -71,7 +71,7 @@ public class RegistrationRepo {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCollection = p0.getCollection("courses");
         Document queryDoc = new Document("course_code", course_code);
 
@@ -100,7 +100,7 @@ public class RegistrationRepo {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCollection = p0.getCollection("registeredTo");
         Document queryDoc = new Document("user_name", s);
         MongoCursor<Document> courseDoc = usersCollection.find(queryDoc).iterator();
@@ -129,7 +129,7 @@ public class RegistrationRepo {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCoursesCollection = p0.getCollection("registeredTo");
         Document queryDoc = new Document("course_code", code).append("user_name", username);
 
@@ -154,7 +154,7 @@ public class RegistrationRepo {
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
-        MongoDatabase p0 = mongoClient.getDatabase("jose_project_0");
+        MongoDatabase p0 = mongoClient.getDatabase("project");
         MongoCollection<Document> usersCoursesCollection = p0.getCollection("registeredTo");
         Document queryDoc = new Document("course_code", course_code);
 

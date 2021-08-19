@@ -1,4 +1,3 @@
-
 version: 0.2
 
 phases:
@@ -7,14 +6,19 @@ phases:
       java: corretto8
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - aws s3 cp s3://jose-robert-student-management/properties.properties ./src/main/resources/properties.properties
   build:
     commands:
       - echo Build started on `date`
       - mvn package
+      - mv target/*.war ./jose_robert-Student_management.war
   post_build:
     commands:
       - echo Build completed on `date`
+      - unzip jose_robert-Student_management.war -d artifact/
+      - mv artifact/WEB-INF WEB-INF
 artifacts:
   files:
-    - target/jose-robert_api_p1-1.0-SNAPSHOT.war
+    - WEB-INF/**/*
+  name: artifact
+

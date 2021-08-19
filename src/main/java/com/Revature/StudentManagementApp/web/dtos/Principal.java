@@ -1,5 +1,6 @@
 package com.Revature.StudentManagementApp.web.dtos;
 
+import com.Revature.StudentManagementApp.dataSource.documents.Faculty;
 import com.Revature.StudentManagementApp.dataSource.documents.Student;
 
 import java.util.Objects;
@@ -15,6 +16,11 @@ public class Principal {
 
     public Principal(Student subject) {
         this.id = subject.getStudent_Id();
+        this.username = subject.getUser().getUser_name();
+    }
+
+    public Principal(Faculty subject) {
+        this.id = subject.getId();
         this.username = subject.getUser().getUser_name();
     }
 
