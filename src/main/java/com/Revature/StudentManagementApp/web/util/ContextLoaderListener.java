@@ -40,7 +40,7 @@ public class ContextLoaderListener implements ServletContextListener {
         CourseRepo courseRepo = new CourseRepo();
         RegistrationService registrationService = new RegistrationService(registrationRepo);
         CourseService courseService = new CourseService(courseRepo, registrationService);
-        CourseServlet courseServlet = new CourseServlet(courseService, mapper);
+        CourseServlet courseServlet = new CourseServlet(courseService, registrationService, mapper);
 
 
         HealthCheckServlet healthCheckServlet = new HealthCheckServlet();

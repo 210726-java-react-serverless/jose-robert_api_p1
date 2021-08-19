@@ -71,7 +71,7 @@ public class CourseRepo implements CrudRepo<Courses> {
             MongoDatabase database = client.getDatabase("p0");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
-            Document queryDoc = new Document("courseId", id);
+            Document queryDoc = new Document("course_Id", id);
             Document removeDoc = courseCollection.find(queryDoc).first();
 
             if (removeDoc == null) {
@@ -88,7 +88,7 @@ public class CourseRepo implements CrudRepo<Courses> {
 
     public boolean updateCourse(Courses course, String field, String newData) {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+            MongoDatabase database = client.getDatabase("jose_project_0");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             Document queryDoc = new Document("course_code", course.getCourse_code());

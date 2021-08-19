@@ -1,5 +1,9 @@
 package com.Revature.StudentManagementApp.dataSource.documents;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Address {
 
     String number;
