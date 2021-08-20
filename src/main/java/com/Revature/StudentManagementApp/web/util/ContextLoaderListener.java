@@ -33,7 +33,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
         CourseRepo courseRepo = new CourseRepo();
         CourseService courseService = new CourseService(courseRepo, registrationService);
-        CourseServlet courseServlet = new CourseServlet(courseService, mapper);
+        CourseServlet courseServlet = new CourseServlet(courseService,registrationService, mapper);
 
         FacultyRepo facultyRepo = new FacultyRepo();
         FacultyService facultyService = new FacultyService(facultyRepo);
