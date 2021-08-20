@@ -1,7 +1,9 @@
 package com.Revature.StudentManagementApp.dataSource.documents;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Objects;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Courses {
 
     private String course_id;
@@ -43,6 +45,14 @@ public class Courses {
         this.course_code = course_code;
         this.start_date = start_date;
         this.end_date = end_date;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
     public String getCourse_name() {

@@ -34,7 +34,9 @@ public class RegistrationService {
     }
 
 
-    public void listCoursesOffered(){
+
+    //TODO changed this to return list instead of void
+    public List<Courses> listCoursesOffered(){
         List<Courses> coursesList = new ArrayList();
         coursesList = registrationRepository.getAllCourses();
 
@@ -45,6 +47,7 @@ public class RegistrationService {
         }
 
 
+        return coursesList;
     }
 
 
