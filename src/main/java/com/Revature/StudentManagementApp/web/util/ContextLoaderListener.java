@@ -24,26 +24,22 @@ public class ContextLoaderListener implements ServletContextListener {
         MongoClient client = MongoConnection.getInstance().getConnection();
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
 
-        ///Studeent Servlet Set up
         StudentRepo studentRepo = new StudentRepo();
         StudentService studentService = new StudentService(studentRepo);
         StudentServlet studentServlet = new StudentServlet(studentService, mapper);
 
+        RegistrationRepo registrationRepo = new RegistrationRepo();
+        RegistrationService registrationService = new RegistrationService(registrationRepo);
 
-        //Faculty Servlet set up
+        CourseRepo courseRepo = new CourseRepo();
+        CourseService courseService = new CourseService(courseRepo, registrationService);
+        CourseServlet courseServlet = new CourseServlet(courseService, mapper);
+
         FacultyRepo facultyRepo = new FacultyRepo();
         FacultyService facultyService = new FacultyService(facultyRepo);
-        FacultyServlet facultyServlet = new FacultyServlet(facultyService, mapper);
-
-        //Course Servlet set up
-        RegistrationRepo registrationRepo = new RegistrationRepo();
-        CourseRepo courseRepo = new CourseRepo();
-        RegistrationService registrationService = new RegistrationService(registrationRepo);
-        CourseService courseService = new CourseService(courseRepo, registrationService);
-        CourseServlet courseServlet = new CourseServlet(courseService, registrationService, mapper);
-
 
         HealthCheckServlet healthCheckServlet = new HealthCheckServlet();
+        FacultyServlet facultyServlet = new FacultyServlet(facultyService, mapper);
         AuthServlet authServlet = new AuthServlet(studentService, mapper);
 
         ServletContext context = sce.getServletContext();
