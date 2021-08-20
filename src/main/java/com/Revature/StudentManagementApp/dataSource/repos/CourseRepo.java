@@ -43,7 +43,7 @@ public class CourseRepo implements CrudRepo<Courses> {
     @Override
     public Courses save(Courses course) {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+            MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             Document courseDoc = new Document("course_name", course.getCourse_name())
@@ -68,10 +68,10 @@ public class CourseRepo implements CrudRepo<Courses> {
     @Override
     public boolean deleteById(String id) {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+            MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
-            Document queryDoc = new Document("courseId", id);
+            Document queryDoc = new Document("course_Id", id);
             Document removeDoc = courseCollection.find(queryDoc).first();
 
             if (removeDoc == null) {
@@ -88,7 +88,8 @@ public class CourseRepo implements CrudRepo<Courses> {
 
     public boolean updateCourse(Courses course, String field, String newData) {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+
+            MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             Document queryDoc = new Document("course_code", course.getCourse_code());
@@ -111,7 +112,7 @@ public class CourseRepo implements CrudRepo<Courses> {
 
     public List<Courses> getCourses() {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+            MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             MongoCursor<Document> cursor = courseCollection.find().iterator();

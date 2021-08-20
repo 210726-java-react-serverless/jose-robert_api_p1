@@ -31,6 +31,16 @@ public class SchoolUser {
         this.address = address;
     }
 
+    public SchoolUser(String first_name, String last_name, String DOB, String phone_num, String user_name, String password, String email) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.DOB = DOB;
+        this.phone_num = phone_num;
+        this.user_name = user_name;
+        this.password = password;
+        this.email = email;
+    }
+
     public String getFirst_name() {
         return first_name;
     }

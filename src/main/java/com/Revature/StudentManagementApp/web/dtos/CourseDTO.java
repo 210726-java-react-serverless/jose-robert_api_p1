@@ -12,7 +12,7 @@ public class CourseDTO {
     private String end_date;
 
 
-    CourseDTO(Courses course){
+    public CourseDTO(Courses course){
         this.course_name = course.getCourse_name();
         this.course_code = course.getCourse_code();
         this.start_date = course.getStart_date();
