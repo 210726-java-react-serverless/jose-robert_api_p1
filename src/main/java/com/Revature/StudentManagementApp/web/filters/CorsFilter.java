@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/")
+@WebFilter("/*")
 public class CorsFilter extends HttpFilter {
 
     @Override
@@ -19,5 +19,5 @@ public class CorsFilter extends HttpFilter {
         resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         chain.doFilter(req, resp);
     }
-    
+
 }
