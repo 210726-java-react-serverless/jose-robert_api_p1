@@ -5,6 +5,8 @@ import com.Revature.StudentManagementApp.dataSource.documents.Courses;
 import com.Revature.StudentManagementApp.dataSource.repos.CourseRepo;
 import com.Revature.StudentManagementApp.util.exceptions.InvalidRequestException;
 
+import java.util.List;
+
 public class CourseService {
 
 
@@ -20,7 +22,7 @@ public class CourseService {
 
 
     public Courses addCourseToCatalog(Courses newCourse){
-        if (!isUserValid(newCourse)) {
+        if (!isCourseValid(newCourse)) {
             throw new InvalidRequestException("Invalid user data provided!");
         }
         return courseRepository.save(newCourse);
@@ -28,7 +30,7 @@ public class CourseService {
 
 
 
-    private boolean isUserValid(Courses newCourse){
+    public boolean isCourseValid(Courses newCourse){
         if (newCourse == null) return false;
         if (newCourse.getCourse_code() == null || newCourse.getCourse_code().trim().equals("")) return false;
         if (newCourse.getCourse_name() == null || newCourse.getCourse_name().trim().equals("")) return false;
@@ -40,9 +42,10 @@ public class CourseService {
     }
 
 
-    public void deleteCourse(String code){
-        courseRepository.deleteById(code);
+    public void deleteCourse(String course){
+        courseRepository.deleteById(course);
     }
+
 
 
     public Courses updateCourse(Courses c, String field, String changeTo){

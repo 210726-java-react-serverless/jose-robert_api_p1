@@ -33,6 +33,7 @@ public class RegistrationRepo {
             Document docResults = c.next();
             try {
                 Courses course = mapper.readValue(docResults.toJson(), Courses.class);
+                course.setCourse_id(docResults.get("_id").toString());
                 courses.add(course);
 
 
@@ -87,6 +88,7 @@ public class RegistrationRepo {
         try {
 
             course = mapper.readValue(courseDoc.toJson(), Courses.class);
+            course.setCourse_id(courseDoc.get("_id").toString());
             return course;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
