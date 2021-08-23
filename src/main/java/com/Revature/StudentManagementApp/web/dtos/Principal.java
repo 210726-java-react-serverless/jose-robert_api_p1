@@ -9,6 +9,7 @@ public class Principal {
 
     private String id;
     private String username;
+    private boolean isFaculty;
 
     public Principal() {
         super();
@@ -17,11 +18,13 @@ public class Principal {
     public Principal(Student subject) {
         this.id = subject.getStudent_Id();
         this.username = subject.getUser().getUser_name();
+        this.isFaculty = false;
     }
 
     public Principal(Faculty subject) {
         this.id = subject.getId();
         this.username = subject.getUser().getUser_name();
+        this.isFaculty = true;
     }
 
     public String getId() {
@@ -40,17 +43,25 @@ public class Principal {
         this.username = username;
     }
 
+    public boolean isFaculty() {
+        return isFaculty;
+    }
+
+    public void setFaculty(boolean faculty) {
+        isFaculty = faculty;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Principal principal = (Principal) o;
-        return Objects.equals(id, principal.id) && Objects.equals(username, principal.username);
+        return isFaculty == principal.isFaculty && Objects.equals(id, principal.id) && Objects.equals(username, principal.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username);
+        return Objects.hash(id, username, isFaculty);
     }
 
     @Override
@@ -58,6 +69,7 @@ public class Principal {
         return "Principal{" +
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
+                ", isFaculty=" + isFaculty +
                 '}';
     }
 }

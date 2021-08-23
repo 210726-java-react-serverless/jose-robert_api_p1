@@ -24,28 +24,35 @@ public class ContextLoaderListener implements ServletContextListener {
         MongoClient client = MongoConnection.getInstance().getConnection();
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
 
+        // Student Servlet
         StudentRepo studentRepo = new StudentRepo();
         StudentService studentService = new StudentService(studentRepo);
         StudentServlet studentServlet = new StudentServlet(studentService, mapper);
 
+        // Course Servlet
+        CourseRepo courseRepo = new CourseRepo();
         RegistrationRepo registrationRepo = new RegistrationRepo();
         RegistrationService registrationService = new RegistrationService(registrationRepo);
-
-        CourseRepo courseRepo = new CourseRepo();
         CourseService courseService = new CourseService(courseRepo, registrationService);
         CourseServlet courseServlet = new CourseServlet(courseService,registrationService, mapper);
 
+        // Faculty Servlet
         FacultyRepo facultyRepo = new FacultyRepo();
         FacultyService facultyService = new FacultyService(facultyRepo);
-
-        HealthCheckServlet healthCheckServlet = new HealthCheckServlet();
         FacultyServlet facultyServlet = new FacultyServlet(facultyService, mapper);
 
+        // Health Check
+        HealthCheckServlet healthCheckServlet = new HealthCheckServlet();
+
+        // Auth Servlets
         AuthServlet authServlet = new AuthServlet(studentService, mapper);
+        FacultyAuthServlet facultyAuthServlet = new FacultyAuthServlet(facultyService, mapper);
+
 
         ServletContext context = sce.getServletContext();
         context.addServlet("HealthCheckServlet", healthCheckServlet).addMapping("/test");
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
+        context.addServlet("FacultyAuthServlet", facultyAuthServlet).addMapping("/faculty/auth");
         context.addServlet("StudentServlet", studentServlet).addMapping("/students");
         context.addServlet("FacultyServlet", facultyServlet).addMapping("/faculty");
         context.addServlet("CourseServlet", courseServlet).addMapping("/course");
