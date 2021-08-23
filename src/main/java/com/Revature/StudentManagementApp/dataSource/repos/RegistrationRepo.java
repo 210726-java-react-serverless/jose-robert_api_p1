@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationRepo {
-
-    /////Repo
-    public List<Courses> getAllCourses(){
+    public List<Courses> getAllCourses() {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
 
@@ -35,7 +33,6 @@ public class RegistrationRepo {
                 Courses course = mapper.readValue(docResults.toJson(), Courses.class);
                 course.setCourse_id(docResults.get("_id").toString());
                 courses.add(course);
-
 
             } catch (JsonProcessingException e) {
                 e.printStackTrace();

@@ -1,7 +1,8 @@
 package com.Revature.StudentManagementApp.dataSource.documents;
 
-import org.bson.codecs.IdGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Faculty {
 
     private String Id;
@@ -9,16 +10,20 @@ public class Faculty {
     private String department;
     private SchoolUser user;
 
-
-    public Faculty(){
-
+    public Faculty() {
+        super();
     }
-    public Faculty(float salary, String department, String fn, String ln, String dob, String phone, String username, String password, String email, Address address) {
+
+    public Faculty(float salary, String department, String fn, String ln, String dob, String phone, String username, String password, String email) {
         this.Salary = salary;
         this.department = department;
-        this.user = new SchoolUser(fn, ln, dob, phone, username,password, email, address);
+        this.user = new SchoolUser(fn, ln, dob, phone, username,password, email);
     }
 
+    public Faculty(float salary, String department, String fn, String ln, String dob, String phone, String username, String password, String email, Address address) {
+        this(salary, department, fn, ln, dob, phone, username, password, email);
+        this.user.setAddress(address);
+    }
 
     public String toFile() {
 
