@@ -24,25 +24,35 @@ public class FacultyRepo implements CrudRepo<Faculty> {
         MongoClient mongoClient = cm.getConnection();
 
         MongoDatabase p0 = mongoClient.getDatabase("project");
-        MongoCollection<Document> usersCollection = p0.getCollection("facultyy");
+        MongoCollection<Document> usersCollection = p0.getCollection("faculty");
 
-        Document addressdoc = new Document("number", user.getUser().getAddress().getNumber())
-                .append("street", user.getUser().getAddress().getStreet())
-                .append("city", user.getUser().getAddress().getCity())
-                .append("state", user.getUser().getAddress().getState())
-                .append("country", user.getUser().getAddress().getCountry())
-                .append("zip_code", user.getUser().getAddress().getZip_code());
+        Document newUserDoc;
+        if (user.getUser().getAddress() == null) {
+            newUserDoc = new Document("first_name", user.getUser().getFirst_name())
+                    .append("last_name", user.getUser().getLast_name())
+                    .append("DOB", user.getUser().getDOB())
+                    .append("phone_num", user.getUser().getPhone_num())
+                    .append("user_name", user.getUser().getUser_name())
+                    .append("password", user.getUser().getPassword())
+                    .append("email", user.getUser().getEmail());
 
-        Document newUserDoc = new Document("first_name", user.getUser().getFirst_name())
-                .append("last_name", user.getUser().getLast_name())
-                .append("DOB", user.getUser().getDOB())
-                .append("phone_num", user.getUser().getPhone_num())
-                .append("user_name", user.getUser().getUser_name())
-                .append("password", user.getUser().getPassword())
-                .append("email", user.getUser().getEmail())
-                .append("address", addressdoc);
+        } else {
+            Document addressDoc = new Document("number", user.getUser().getAddress().getNumber())
+                    .append("street", user.getUser().getAddress().getStreet())
+                    .append("city", user.getUser().getAddress().getCity())
+                    .append("state", user.getUser().getAddress().getState())
+                    .append("country", user.getUser().getAddress().getCountry())
+                    .append("zip_code", user.getUser().getAddress().getZip_code());
 
-
+            newUserDoc = new Document("first_name", user.getUser().getFirst_name())
+                    .append("last_name", user.getUser().getLast_name())
+                    .append("DOB", user.getUser().getDOB())
+                    .append("phone_num", user.getUser().getPhone_num())
+                    .append("user_name", user.getUser().getUser_name())
+                    .append("password", user.getUser().getPassword())
+                    .append("email", user.getUser().getEmail())
+                    .append("address", addressDoc);
+        }
 
         Document facultyDoc = new Document("Salary", user.getSalary())
                 .append("department", user.getDepartment())
