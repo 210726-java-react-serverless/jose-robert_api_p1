@@ -37,10 +37,6 @@ public class CourseServlet extends HttpServlet {
         resp.setContentType("application/json");
 
 
-        String course_code = req.getParameter("course_code");
-
-
-
         try{
 
             List<Courses> Allcourse =  registrationService.listCoursesOffered();
@@ -72,16 +68,17 @@ public class CourseServlet extends HttpServlet {
 
         String course_code = req.getParameter("course_code");
         try{
-            Courses deleteCourse = mapper.readValue(req.getInputStream(), Courses.class );
+//            Courses deleteCourse = mapper.readValue(req.getInputStream(), Courses.class );
 
-            if (courseService.isCourseValid(deleteCourse)){
+            if (courseService.isCourseValid(registrationService.findByCourseCode(course_code))){
                 courseService.deleteCourse(course_code);
+                registrationService.removeStudentsRegisteredToCourse(course_code);
                 String payload = mapper.writeValueAsString(course_code);
                 printWriter.write(payload);
 
             }else{
-                courseService.deleteCourse(deleteCourse.getCourse_code());
-                String payload = mapper.writeValueAsString(deleteCourse.getCourse_code());
+                courseService.deleteCourse(course_code);
+                String payload = mapper.writeValueAsString(registrationService.findByCourseCode(course_code));
                 printWriter.write(payload);
             }
             resp.setStatus(200);

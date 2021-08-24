@@ -30,6 +30,7 @@ public class ContextLoaderListener implements ServletContextListener {
 
         RegistrationRepo registrationRepo = new RegistrationRepo();
         RegistrationService registrationService = new RegistrationService(registrationRepo);
+        RegistrationServlet registrationServlet = new RegistrationServlet(registrationService,mapper);
 
         CourseRepo courseRepo = new CourseRepo();
         CourseService courseService = new CourseService(courseRepo, registrationService);
@@ -49,6 +50,7 @@ public class ContextLoaderListener implements ServletContextListener {
         context.addServlet("StudentServlet", studentServlet).addMapping("/students");
         context.addServlet("FacultyServlet", facultyServlet).addMapping("/faculty");
         context.addServlet("CourseServlet", courseServlet).addMapping("/course");
+        context.addServlet("RegistrationServlet", registrationServlet).addMapping("/register");
     }
 
     @Override
