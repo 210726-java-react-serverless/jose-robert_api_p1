@@ -67,50 +67,39 @@ public class RegistrationService {
             isWithinRegistrationDate IWR = new isWithinRegistrationDate(date, dateEnd);
 
             if (IWR.check()){
-
                 availableCourses.add(coursesList.get(i));
             }
-
-
         }
         for( int i = 0; i < availableCourses.size(); i++)
         {
             System.out.println(i + ")" +availableCourses.get(i).getCourse_name());
             System.out.println("Course code : "+ availableCourses.get(i).getCourse_code() + "\n");
-
         }
         return availableCourses;
     }
 
 
-    public void registerForClass(String c, Student s){
-
+    public void registerForClass(String c, String s){
         Courses course = registrationRepository.findByCourseCode(c);
-        registrationRepository.addRegisteredCoursses(course, s.getUser().getUser_name());
-
+        registrationRepository.addRegisteredCourses(course, s);
     }
 
 
 
-    public void unregisterFromCourse(String c, Student s){
-        registrationRepository.unRegisterCourse(c, s.getUser().getUser_name());
+    public void unregisterFromCourse(String c, String s){
+        registrationRepository.unRegisterCourse(c, s);
     }
 
 
 
-    public void coursesRegisteredTo(String username){
+    public List<String> coursesRegisteredTo(String username){
         List<String> courses = registrationRepository.coursesRegisteredFor(username);
-
-        for(int i = 0; i < courses.size(); i++){
-            System.out.println(courses.get(i));
-        }
+        return courses;
     }
 
 
     public void removeStudentsRegisteredToCourse(String course_code){
         registrationRepository.unRegisterStudentsFromDeletedCourse(course_code);
-
-
     }
 
 }

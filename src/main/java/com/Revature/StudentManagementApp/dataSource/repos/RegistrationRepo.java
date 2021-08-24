@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationRepo {
+
+
+
+    //Gets all courses available for students
     public List<Courses> getAllCourses() {
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
@@ -46,7 +50,8 @@ public class RegistrationRepo {
     }
 
 
-    public void addRegisteredCoursses(Courses c, String s){
+    //adds a course name and username to Db to keep track of courses students are registered to.
+    public void addRegisteredCourses(Courses c, String s){
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
 
@@ -56,15 +61,16 @@ public class RegistrationRepo {
         Document classDoc = new Document("course_code", c.getCourse_code())
                 .append("user_name", s);
 
+        System.out.println(classDoc);
+
 
         usersCollection.insertOne(classDoc);
 
     }
 
 
+    // finds course by course code
     public Courses findByCourseCode(String course_code){
-
-
 
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
@@ -85,6 +91,7 @@ public class RegistrationRepo {
         try {
 
             course = mapper.readValue(courseDoc.toJson(), Courses.class);
+            course.setCourse_id(courseDoc.get("_id").toString());
             return course;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -94,6 +101,7 @@ public class RegistrationRepo {
 
     }
 
+    //gets all the courses that a student is registered for by user name
     public List<String> coursesRegisteredFor(String s){
         MongoConnection cm = MongoConnection.getInstance();
         MongoClient mongoClient = cm.getConnection();
@@ -109,20 +117,18 @@ public class RegistrationRepo {
             Document docResults = courseDoc.next();
             String code = docResults.get("course_code").toString();
             courses.add(code);
-
-
-
         }
 
+        System.out.println(courses);
 
         return courses;
 
-
-
-
-
     }
 
+
+
+
+    //unregisters a student by course.
     public void unRegisterCourse(String code, String username){
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();
@@ -148,6 +154,8 @@ public class RegistrationRepo {
     }
 
 
+
+    ///unregisteres all students registered to a course that has beeen deleted by the database.
     public void unRegisterStudentsFromDeletedCourse(String course_code){
         MongoConnection mc = MongoConnection.getInstance();
         MongoClient mongoClient = mc.getConnection();

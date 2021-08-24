@@ -21,7 +21,8 @@ public class CourseRepo implements CrudRepo<Courses> {
     @Override
     public Courses findById(String id) {
         try {
-            MongoDatabase database = client.getDatabase("p0");
+
+            MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
             Document queryDoc = new Document("course_code", id);
@@ -48,7 +49,7 @@ public class CourseRepo implements CrudRepo<Courses> {
 
             Document courseDoc = new Document("course_name", course.getCourse_name())
                     .append("course_code", course.getCourse_code())
-                    .append("course_date", course.getStart_date())
+                    .append("start_date", course.getStart_date())
                     .append("end_date", course.getEnd_date());
 
             courseCollection.insertOne(courseDoc);
@@ -71,7 +72,7 @@ public class CourseRepo implements CrudRepo<Courses> {
             MongoDatabase database = client.getDatabase("project");
             MongoCollection<Document> courseCollection = database.getCollection("courses");
 
-            Document queryDoc = new Document("course_Id", id);
+            Document queryDoc = new Document("course_code", id);
             Document removeDoc = courseCollection.find(queryDoc).first();
 
             if (removeDoc == null) {

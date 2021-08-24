@@ -7,6 +7,7 @@ import com.Revature.StudentManagementApp.web.dtos.ErrorResponse;
 import com.Revature.StudentManagementApp.web.dtos.Principal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import javafx.print.Printer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +26,19 @@ public class StudentServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("<h1>/Student servlet works!</h1>");
-    }
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println(req.getAttribute("filtered"));
+//        PrintWriter printWriter = resp.getWriter();
+//        resp.setContentType("application/json");
+//
+//
+//
+//
+//
+//
+//
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
