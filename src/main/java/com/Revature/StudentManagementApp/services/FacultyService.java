@@ -2,9 +2,8 @@ package com.Revature.StudentManagementApp.services;
 
 import com.Revature.StudentManagementApp.dataSource.documents.Faculty;
 import com.Revature.StudentManagementApp.dataSource.repos.FacultyRepo;
+import com.Revature.StudentManagementApp.util.exceptions.AuthenticationException;
 import com.Revature.StudentManagementApp.util.exceptions.InvalidRequestException;
-
-import javax.naming.AuthenticationException;
 
 public class FacultyService {
 
@@ -42,16 +41,9 @@ public class FacultyService {
 
 
     public Faculty login(String username, String password) {
-
-
         Faculty faculty = faculty_repo.findUserByCredentials(username, password);
         if (faculty == null) {
-
-            try {
-                throw new AuthenticationException("Invalid user");
-            } catch (AuthenticationException e) {
-                e.printStackTrace();
-            }
+            throw new AuthenticationException("Invalid user provided");
         }
 
         return faculty;
