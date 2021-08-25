@@ -6,6 +6,8 @@ import com.Revature.StudentManagementApp.util.exceptions.AuthenticationException
 import com.Revature.StudentManagementApp.web.dtos.Credentials;
 import com.Revature.StudentManagementApp.web.dtos.ErrorResponse;
 import com.Revature.StudentManagementApp.web.dtos.Principal;
+import com.Revature.StudentManagementApp.web.util.security.JwtConfig;
+import com.Revature.StudentManagementApp.web.util.security.TokenGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -20,10 +22,12 @@ public class AuthServlet extends HttpServlet {
 
     private final StudentService studentService;
     private final ObjectMapper mapper;
+    private final TokenGenerator tokenGenerator;
 
-    public AuthServlet(StudentService studentService, ObjectMapper mapper) {
+    public AuthServlet(StudentService studentService, ObjectMapper mapper, TokenGenerator tokenGenerator) {
         this.studentService = studentService;
         this.mapper = mapper;
+        this.tokenGenerator = tokenGenerator;
     }
 
     @Override
@@ -39,8 +43,9 @@ public class AuthServlet extends HttpServlet {
             String payload = mapper.writeValueAsString(principal);
             respWriter.write(payload);
 
-            HttpSession session = req.getSession();
-            session.setAttribute("auth-user", principal);
+            String token = tokenGenerator.createToken(principal);
+            resp.setHeader(tokenGenerator.getJwtConfig().getHeader(), token);
+
         } catch (AuthenticationException e) {
             resp.setStatus(401);
             ErrorResponse errResp = new ErrorResponse(401, e.getMessage());

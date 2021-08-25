@@ -2,6 +2,7 @@ package com.Revature.StudentManagementApp.web.dtos;
 
 import com.Revature.StudentManagementApp.dataSource.documents.Faculty;
 import com.Revature.StudentManagementApp.dataSource.documents.Student;
+import io.jsonwebtoken.Claims;
 
 import java.util.Objects;
 
@@ -22,6 +23,11 @@ public class Principal {
     public Principal(Faculty subject) {
         this.id = subject.getId();
         this.username = subject.getUser().getUser_name();
+    }
+    public Principal(Claims jwtClaims) {
+        this.id = jwtClaims.getId();
+        this.username = jwtClaims.getSubject();
+//        this.role = jwtClaims.get("role", String.class);
     }
 
     public String getId() {

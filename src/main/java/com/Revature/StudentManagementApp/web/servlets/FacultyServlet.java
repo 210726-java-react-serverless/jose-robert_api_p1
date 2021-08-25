@@ -39,6 +39,17 @@ public class FacultyServlet extends HttpServlet {
         PrintWriter respWriter = resp.getWriter();
         resp.setContentType("application/json");
 
+        Principal requestingUser = (Principal) req.getAttribute("principal");
+//        if (requestingUser == null) {
+//            String msg = "No session found, please login.";
+//
+//            return; // end here, do not proceed to the remainder of the method's logic
+//        } else if (!requestingUser.getUsername().equals("wsingleton")) {
+//            String msg = "Unauthorized attempt to access endpoint made by: " + requestingUser.getUsername();
+//
+//            return; // end here, do not proceed to the remainder of the method's logic
+//        }
+
         try {
             Faculty newFaculty = mapper.readValue(req.getInputStream(), Faculty.class);
             Principal principal = new Principal(facultyService.register(newFaculty));
