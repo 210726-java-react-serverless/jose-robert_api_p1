@@ -3,7 +3,9 @@ package com.Revature.StudentManagementApp.dataSource.repos;
 import com.Revature.StudentManagementApp.dataSource.documents.Faculty;
 import com.Revature.StudentManagementApp.dataSource.documents.Student;
 import com.Revature.StudentManagementApp.util.MongoConnection;
+import com.Revature.StudentManagementApp.util.exceptions.DataSourceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -84,39 +86,31 @@ public class FacultyRepo implements CrudRepo<Faculty> {
     }
 
     public Faculty findUserByCredentials(String username, String password) {
-
-        MongoConnection mc = MongoConnection.getInstance();
-        MongoClient mongoClient = mc.getConnection();
-
-        MongoDatabase p0 = mongoClient.getDatabase("project");
-        Faculty faculty = null;
-        MongoCollection<Document> usersCollection = p0.getCollection( "facultyy");
-        Document queryDoc = new Document("user.user_name", username).append("user.password", password);
-        Document facultyDoc = usersCollection.find(queryDoc).first();
-
-
-
-
-
-
-        ObjectMapper mapper = new ObjectMapper();
-
-
         try {
-            assert facultyDoc != null;
-            faculty = mapper.readValue(facultyDoc.toJson(), Faculty.class);
-            faculty.setId(facultyDoc.get("_id").toString());
-            System.out.println(faculty);
-            return faculty;
+            MongoClient mongoClient = MongoConnection.getInstance().getConnection();
+            MongoDatabase p0 = mongoClient.getDatabase("project");
+            MongoCollection<Document> usersCollection = p0.getCollection("faculty");
+
+            Document queryDoc = new Document("user.user_name", username)
+                    .append("user.password", password);
+
+            Document facultyDoc = usersCollection.find(queryDoc).first();
+
+            if (facultyDoc == null) {
+                return null;
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+            Faculty authUser = mapper.readValue(facultyDoc.toJson(), Faculty.class);
+            authUser.setId(facultyDoc.get("_id").toString());
+
+            return authUser;
+
+        } catch (JsonMappingException e) {
+            throw new DataSourceException("An exception occurred while mapping the document", e);
 
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            throw new DataSourceException("An unexpected error occurred", e);
         }
-
-
-
-        return faculty;
-
-
     }
 }
