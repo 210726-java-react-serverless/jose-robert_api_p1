@@ -38,7 +38,7 @@ public class RegistrationServlet  extends HttpServlet {
 
         
         try{
-            List<String> courses = registrationService.coursesRegisteredTo(user_name);
+            List<Courses> courses = registrationService.coursesRegisteredTo(user_name);
             printWriter.write(mapper.writeValueAsString(courses));
             resp.setStatus(200);
 

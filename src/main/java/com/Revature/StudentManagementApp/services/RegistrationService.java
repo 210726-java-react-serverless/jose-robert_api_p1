@@ -92,9 +92,14 @@ public class RegistrationService {
 
 
 
-    public List<String> coursesRegisteredTo(String username){
+    public List<Courses> coursesRegisteredTo(String username){
         List<String> courses = registrationRepository.coursesRegisteredFor(username);
-        return courses;
+        List<Courses> course = new ArrayList<>();
+        for(int o = 0; o <courses.size(); o++){
+            course.add(registrationRepository.findByCourseCode(courses.get(o)));
+        }
+
+        return course;
     }
 
 
