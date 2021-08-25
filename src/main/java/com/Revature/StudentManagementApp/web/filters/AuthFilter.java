@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*")
 public class AuthFilter extends HttpFilter {
 
     private final Logger logger = LoggerFactory.getLogger(AuthFilter.class);
@@ -47,7 +46,7 @@ public class AuthFilter extends HttpFilter {
 
             Claims jwtClaims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSigningKey())
-                    .parseClaimsJwt(token)
+                    .parseClaimsJws(token)
                     .getBody();
 
             req.setAttribute("principal", new Principal(jwtClaims));

@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class JwtConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(JwtConfig.class);
+
 
     private String header;
     private String prefix;
@@ -27,7 +27,7 @@ public class JwtConfig {
 
             Properties appProperties = new Properties();
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            appProperties.load(loader.getResourceAsStream("application.properties"));
+            appProperties.load(loader.getResourceAsStream("properties.properties"));
 
             this.header = appProperties.getProperty("jwt.header");
             this.prefix = appProperties.getProperty("jwt.prefix");
@@ -40,7 +40,7 @@ public class JwtConfig {
 
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error(e.getMessage(), e);
+
         }
 
     }
