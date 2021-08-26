@@ -35,7 +35,7 @@ public class RegistrationService {
 
 
 
-    //TODO changed this to return list instead of void
+
     public List<Courses> listCoursesOffered(){
         List<Courses> coursesList = new ArrayList();
         coursesList = registrationRepository.getAllCourses();

@@ -93,6 +93,7 @@ public class RegistrationServlet  extends HttpServlet {
 
         try {
             registrationService.unregisterFromCourse(course_code,user_name);
+            respWriter.write(mapper.writeValueAsString("Deleted: "+ "Successfully"));
             resp.setStatus(204);
         } catch (InvalidRequestException e) {
             e.printStackTrace();

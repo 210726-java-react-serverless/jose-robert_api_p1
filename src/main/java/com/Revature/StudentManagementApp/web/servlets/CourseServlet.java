@@ -36,11 +36,18 @@ public class CourseServlet extends HttpServlet {
         PrintWriter printWriter = resp.getWriter();
         resp.setContentType("application/json");
 
-
+        boolean a = Boolean.parseBoolean(req.getParameter("available"));
         try{
-
-            List<Courses> Allcourse =  registrationService.listCoursesOffered();
+            List<Courses> Allcourse;
+            if(a){
+                Allcourse = registrationService.listCoursesAvailable();
+            }else
+            {
+                Allcourse = registrationService.listCoursesOffered();
+            }
             printWriter.write(mapper.writeValueAsString(Allcourse));
+
+
             resp.setStatus(200);
 
 
@@ -105,10 +112,13 @@ public class CourseServlet extends HttpServlet {
         PrintWriter printWriter = resp.getWriter();
         resp.setContentType("application/json");
 
+
+        String field = req.getParameter("field");
+        String ChangeTo = req.getParameter("changeTo");
+
         try{
             Courses course = mapper.readValue(req.getInputStream(), Courses.class);
-            String field = req.getParameter("field");
-            String ChangeTo = req.getParameter("changeTo");
+
             CoursePrincipal principal = new CoursePrincipal(courseService.updateCourse(course,field,ChangeTo));
             String payload = mapper.writeValueAsString(principal);
             printWriter.write(payload);
