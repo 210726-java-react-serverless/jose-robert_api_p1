@@ -1,7 +1,9 @@
 package com.Revature.StudentManagementApp.web.servlets;
 
+import com.Revature.StudentManagementApp.dataSource.documents.Courses;
 import com.Revature.StudentManagementApp.dataSource.documents.Student;
 import com.Revature.StudentManagementApp.services.StudentService;
+import com.Revature.StudentManagementApp.util.exceptions.DataSourceException;
 import com.Revature.StudentManagementApp.util.exceptions.InvalidRequestException;
 import com.Revature.StudentManagementApp.web.dtos.ErrorResponse;
 import com.Revature.StudentManagementApp.web.dtos.Principal;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class StudentServlet extends HttpServlet {
 
@@ -31,6 +34,30 @@ public class StudentServlet extends HttpServlet {
 //        PrintWriter printWriter = resp.getWriter();
 //        resp.setContentType("application/json");
 //
+//        try{
+//            List<Student> student;
+//            if(a){
+//                Allcourse = registrationService.listCoursesAvailable();
+//            }else
+//            {
+//                Allcourse = registrationService.listCoursesOffered();
+//            }
+//            printWriter.write(mapper.writeValueAsString(Allcourse));
+//
+//
+//            resp.setStatus(200);
+//
+//
+//        }catch (DataSourceException rnfe) {
+//            resp.setStatus(404);
+//            ErrorResponse errResp = new ErrorResponse(404, rnfe.getMessage());
+//            printWriter.write(mapper.writeValueAsString(errResp));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            resp.setStatus(500); // server's fault
+//            ErrorResponse errResp = new ErrorResponse(500, "The server experienced an issue, please try again later.");
+//            printWriter.write(mapper.writeValueAsString(errResp));
+//        }
 //
 //
 //
