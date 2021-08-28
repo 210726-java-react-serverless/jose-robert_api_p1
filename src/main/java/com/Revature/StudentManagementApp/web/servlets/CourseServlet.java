@@ -113,14 +113,13 @@ public class CourseServlet extends HttpServlet {
         resp.setContentType("application/json");
 
 
-        String field = req.getParameter("field");
-        String ChangeTo = req.getParameter("changeTo");
+
 
         try{
-            Courses course = mapper.readValue(req.getInputStream(), Courses.class);
+            CoursePrincipal course = mapper.readValue(req.getInputStream(), CoursePrincipal.class);
 
-            CoursePrincipal principal = new CoursePrincipal(courseService.updateCourse(course,field,ChangeTo));
-            String payload = mapper.writeValueAsString(principal);
+            courseService.updateCourse(registrationService.findByCourseCode(course.getCourse_code()), course.getField(), course.getUpdateTo());
+            String payload = mapper.writeValueAsString(course);
             printWriter.write(payload);
             resp.setStatus(200);
 
