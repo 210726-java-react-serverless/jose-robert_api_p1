@@ -3,6 +3,7 @@ package com.revature.studentmanagement.services;
 import com.revature.studentmanagement.datasource.documents.Faculty;
 import com.revature.studentmanagement.datasource.repos.FacultyRepo;
 import com.revature.studentmanagement.util.exceptions.AuthenticationException;
+import com.revature.studentmanagement.util.exceptions.DataSourceException;
 import com.revature.studentmanagement.util.exceptions.InvalidRequestException;
 
 public class FacultyService {
@@ -41,13 +42,15 @@ public class FacultyService {
 
 
     public Faculty login(String username, String password) {
-        Faculty faculty = faculty_repo.findUserByCredentials(username, password);
-        if (faculty == null) {
-            throw new AuthenticationException("Invalid user provided");
+        if (username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
+            throw new AuthenticationException("Did not provide username or password");
         }
 
-        return faculty;
-
+        try {
+            return faculty_repo.findUserByCredentials(username, password);
+        } catch (Exception e) {
+            throw new DataSourceException("An unexpected error occurred", e);
+        }
     }
 
 }

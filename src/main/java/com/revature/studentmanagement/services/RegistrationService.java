@@ -2,6 +2,7 @@ package com.revature.studentmanagement.services;
 
 import com.revature.studentmanagement.datasource.documents.Courses;
 import com.revature.studentmanagement.datasource.repos.RegistrationRepo;
+import com.revature.studentmanagement.util.exceptions.DataSourceException;
 import com.revature.studentmanagement.util.isWithinRegistrationDate;
 
 import java.util.ArrayList;
@@ -21,9 +22,8 @@ public class RegistrationService {
             return registrationRepository.findByCourseCode(s);
         } catch (Exception o){
             o.printStackTrace();
+            throw new DataSourceException("An unexpected error occurred", o);
         }
-
-        return null;
     }
 
 

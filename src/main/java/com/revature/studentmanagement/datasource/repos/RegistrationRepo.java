@@ -91,7 +91,6 @@ public class RegistrationRepo {
 
             Document courseDoc = usersCollection.find(queryDoc).first();
 
-
             if (courseDoc == null) {
                 return null;
             }
