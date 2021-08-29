@@ -16,7 +16,7 @@
     </context-param>
 
     <listener>
-        <listener-class>com.Revature.StudentManagementApp.web.util.ContextLoaderListener</listener-class>
+        <listener-class>com.revature.studentmanagement.web.util.ContextLoaderListener</listener-class>
     </listener>
 
 </web-app>
