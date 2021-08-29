@@ -119,6 +119,7 @@ public class CourseServlet extends HttpServlet {
             CoursePrincipal course = mapper.readValue(req.getInputStream(), CoursePrincipal.class);
 
             courseService.updateCourse(registrationService.findByCourseCode(course.getCourse_code()), course.getField(), course.getUpdateTo());
+            System.out.println(course);
             String payload = mapper.writeValueAsString(course);
             printWriter.write(payload);
             resp.setStatus(200);
