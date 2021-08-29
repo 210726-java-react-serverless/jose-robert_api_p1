@@ -31,6 +31,30 @@ public class StudentServlet extends HttpServlet {
 //        PrintWriter printWriter = resp.getWriter();
 //        resp.setContentType("application/json");
 //
+//        try{
+//            List<Student> student;
+//            if(a){
+//                Allcourse = registrationService.listCoursesAvailable();
+//            }else
+//            {
+//                Allcourse = registrationService.listCoursesOffered();
+//            }
+//            printWriter.write(mapper.writeValueAsString(Allcourse));
+//
+//
+//            resp.setStatus(200);
+//
+//
+//        }catch (DataSourceException rnfe) {
+//            resp.setStatus(404);
+//            ErrorResponse errResp = new ErrorResponse(404, rnfe.getMessage());
+//            printWriter.write(mapper.writeValueAsString(errResp));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            resp.setStatus(500); // server's fault
+//            ErrorResponse errResp = new ErrorResponse(500, "The server experienced an issue, please try again later.");
+//            printWriter.write(mapper.writeValueAsString(errResp));
+//        }
 //
 //
 //

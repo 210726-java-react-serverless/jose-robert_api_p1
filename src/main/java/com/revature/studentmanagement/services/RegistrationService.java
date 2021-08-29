@@ -16,17 +16,11 @@ public class RegistrationService {
 
     }
 
-    //TODO add methods to interact with courses models
-
-
-
     public Courses findByCourseCode(String s){
-
-        try{
+        try {
             return registrationRepository.findByCourseCode(s);
-        }catch (Exception o){
+        } catch (Exception o){
             o.printStackTrace();
-
         }
 
         return null;
@@ -60,7 +54,9 @@ public class RegistrationService {
         for (int i =0; i < coursesList.size(); i++) {
 
             String date = coursesList.get(i).getStart_date();
+
             String dateEnd = coursesList.get(i).getEnd_date();
+
 
             ///When a student wants to register for a class this will check if it is open for registration
             isWithinRegistrationDate IWR = new isWithinRegistrationDate(date, dateEnd);
