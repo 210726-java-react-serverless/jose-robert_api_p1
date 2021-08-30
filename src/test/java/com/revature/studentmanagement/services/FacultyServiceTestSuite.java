@@ -15,14 +15,14 @@ import static org.mockito.Mockito.*;
 
 public class FacultyServiceTestSuite {
 
-    FacultyService sut;
+    com.revature.studentmanagement.services.FacultyService sut;
 
     private FacultyRepo mockFacultyRepo;
 
     @Before
     public void beforeEachTest() {
         mockFacultyRepo = mock(FacultyRepo.class);
-        sut = new FacultyService(mockFacultyRepo);
+        sut = new com.revature.studentmanagement.services.FacultyService(mockFacultyRepo);
     }
 
     @After
