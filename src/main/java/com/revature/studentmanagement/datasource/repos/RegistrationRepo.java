@@ -175,6 +175,7 @@ public class RegistrationRepo {
             System.out.println("Removed: " + result);
         } catch (MongoException m) {
             logger.error("User doesn't exist");
+            throw new DataSourceException("An unexpected error occurred", m);
         } catch (Exception e) {
             logger.error(e.getMessage());
             throw new DataSourceException("An unexpected error occurred", e);
