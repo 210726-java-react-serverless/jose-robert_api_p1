@@ -3,6 +3,7 @@ package com.revature.studentmanagement.services;
 import com.revature.studentmanagement.datasource.documents.Student;
 import com.revature.studentmanagement.datasource.repos.StudentRepo;
 import com.revature.studentmanagement.util.exceptions.AuthenticationException;
+import com.revature.studentmanagement.util.exceptions.DataSourceException;
 import com.revature.studentmanagement.util.exceptions.InvalidRequestException;
 
 public class StudentService {
@@ -16,16 +17,16 @@ public class StudentService {
 
     }
 
-
-
-
-    //TODO student register method AND FACULTY
     public Student register(Student new_user){
-
         if (!isUserValid(new_user)) {
             throw new InvalidRequestException("Invalid user data provided!");
-        }else
+        }
+
+        try {
             return stu_repo.save(new_user);
+        } catch (Exception e) {
+            throw new DataSourceException("Could not register user in the database", e);
+        }
     }
 
     public boolean isUserValid(Student user) {
