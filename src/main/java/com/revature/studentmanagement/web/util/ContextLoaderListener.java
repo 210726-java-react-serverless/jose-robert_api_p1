@@ -55,7 +55,7 @@ public class ContextLoaderListener implements ServletContextListener {
         AuthServlet authServlet = new AuthServlet(studentService, mapper, tokenGenerator);
 
 
-        FacultyAuthServlet facultyAuthServlet = new FacultyAuthServlet(facultyService, mapper);
+        FacultyAuthServlet facultyAuthServlet = new FacultyAuthServlet(facultyService, mapper, tokenGenerator);
 
 
 

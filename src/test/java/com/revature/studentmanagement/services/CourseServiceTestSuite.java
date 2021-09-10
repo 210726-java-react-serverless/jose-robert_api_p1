@@ -14,16 +14,16 @@ import static org.mockito.Mockito.*;
 
 public class CourseServiceTestSuite {
 
-    CourseService sut;
+    com.revature.studentmanagement.services.CourseService sut;
 
     private CourseRepo mockCourseRepo;
-    private RegistrationService mockRegistrationService;
+    private com.revature.studentmanagement.services.RegistrationService mockRegistrationService;
 
     @Before
     public void beforeEachTest() {
         mockCourseRepo = mock(CourseRepo.class);
-        mockRegistrationService = mock(RegistrationService.class);
-        sut = new CourseService(mockCourseRepo, mockRegistrationService);
+        mockRegistrationService = mock(com.revature.studentmanagement.services.RegistrationService.class);
+        sut = new com.revature.studentmanagement.services.CourseService(mockCourseRepo, mockRegistrationService);
     }
 
     @After

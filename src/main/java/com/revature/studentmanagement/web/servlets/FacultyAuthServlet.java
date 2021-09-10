@@ -7,12 +7,12 @@ import com.revature.studentmanagement.web.dtos.Credentials;
 import com.revature.studentmanagement.web.dtos.ErrorResponse;
 import com.revature.studentmanagement.web.dtos.Principal;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.studentmanagement.web.util.security.TokenGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,10 +20,12 @@ public class FacultyAuthServlet extends HttpServlet {
 
     private final FacultyService facultyService;
     private final ObjectMapper mapper;
+    private final TokenGenerator tokenGenerator;
 
-    public FacultyAuthServlet(FacultyService facultyService, ObjectMapper mapper) {
+    public FacultyAuthServlet(FacultyService facultyService, ObjectMapper mapper, TokenGenerator tokenGenerator) {
         this.facultyService = facultyService;
         this.mapper = mapper;
+        this.tokenGenerator = tokenGenerator;
     }
 
     @Override
@@ -39,8 +41,9 @@ public class FacultyAuthServlet extends HttpServlet {
             String payload = mapper.writeValueAsString(principal);
             respWriter.write(payload);
 
-            HttpSession session = req.getSession();
-            session.setAttribute("auth-user", principal);
+            String token = tokenGenerator.createToken(principal);
+            resp.setHeader(tokenGenerator.getJwtConfig().getHeader(), token);
+
         } catch (AuthenticationException e) {
             resp.setStatus(401);
             ErrorResponse errResp = new ErrorResponse(401, e.getMessage());
